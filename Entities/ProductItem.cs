@@ -12,5 +12,7 @@ namespace Entities
 
         public string productName { get; set; } 
 
+
+
     }
 }
