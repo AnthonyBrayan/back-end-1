@@ -4,6 +4,7 @@ using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(ServiceContext))]
-    partial class ServiceContextModelSnapshot : ModelSnapshot
+    [Migration("20230727174145_addTables")]
+    partial class addTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,11 +44,11 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entities.Customer", b =>
                 {
-                    b.Property<int>("Id_customer")
+                    b.Property<int>("Id_custumer")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id_customer"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id_custumer"));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -55,7 +58,7 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id_customer");
+                    b.HasKey("Id_custumer");
 
                     b.ToTable("Customer", (string)null);
                 });

@@ -17,12 +17,5 @@ namespace WebApplication1.Services
             _serviceContext.SaveChanges();
             return productItem.Id;
         }
-
-        //public int insertProduct(ProductItem productItem)
-        //{
-        //    _serviceContext.Products.Add(productItem);
-        //    _serviceContext.SaveChanges();
-        //    return productItem.Id;
-        //}
     }
 }

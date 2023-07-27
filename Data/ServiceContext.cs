@@ -1,12 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Entities;
+using System.Runtime;
 
 namespace Data
 {
@@ -14,12 +10,42 @@ namespace Data
     {
         public ServiceContext(DbContextOptions<ServiceContext> options) : base(options) { }
         public DbSet<ProductItem> Products { get; set; }
+        public DbSet<Brand> Brand { get; set; }
+        public DbSet<Customer> Customer { get; set; }
+        public DbSet<Order> Order { get; set; }
+        public DbSet<Order_detail> Order_detail { get; set; }
+        public DbSet<Supplier> Supllier { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<ProductItem>(entity => {
+            builder.Entity<ProductItem>(entity =>
+            {
                 entity.ToTable("Products");
             });
+
+            builder.Entity<Brand>(entity =>
+            {
+                entity.ToTable("Brand");
+            });
+
+            builder.Entity<Customer>(entity =>
+            {
+                entity.ToTable("Customer");
+            });
+            builder.Entity<Order>(entity =>
+            {
+                entity.ToTable("Order");
+            });
+            builder.Entity<Order_detail>(entity =>
+            {
+                entity.ToTable("Order_detail");
+            });
+            builder.Entity<Supplier>(entity =>
+            {
+                entity.ToTable("Supplier");
+            });
+
         }
     }
     public class ServiceContextFactory : IDesignTimeDbContextFactory<ServiceContext>
