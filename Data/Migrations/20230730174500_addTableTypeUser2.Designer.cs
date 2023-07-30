@@ -4,6 +4,7 @@ using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(ServiceContext))]
-    partial class ServiceContextModelSnapshot : ModelSnapshot
+    [Migration("20230730174500_addTableTypeUser2")]
+    partial class addTableTypeUser2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,9 +61,12 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TypeUsuarioId_TypeUser")
+                        .HasColumnType("int");
+
                     b.HasKey("Id_customer");
 
-                    b.HasIndex("IdTypeUsuario");
+                    b.HasIndex("TypeUsuarioId_TypeUser");
 
                     b.ToTable("Customer", (string)null);
                 });
@@ -208,13 +214,13 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entities.Customer", b =>
                 {
-                    b.HasOne("Entities.TypeUsuario", "TypeUsuarioCustumer")
+                    b.HasOne("Entities.TypeUsuario", "TypeUsuario")
                         .WithMany("Customer")
-                        .HasForeignKey("IdTypeUsuario")
+                        .HasForeignKey("TypeUsuarioId_TypeUser")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("TypeUsuarioCustumer");
+                    b.Navigation("TypeUsuario");
                 });
 
             modelBuilder.Entity("Entities.Order", b =>

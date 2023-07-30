@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Entities
@@ -17,9 +18,10 @@ namespace Entities
         public string Email { get; set; }
 
         // Relación con TypeUser (muchos a uno)
-        [ForeignKey("IdTypeUsuario")]
+        [ForeignKey("TypeUsuario")]
         public int IdTypeUsuario { get; set; }
-        public virtual TypeUsuario TypeUsuario { get; set; }
+        [JsonIgnore]
+        public virtual TypeUsuario TypeUsuario{ get; set; }
 
         // Relación con pedidos (uno a muchos)
         public ICollection<Order> orders { get; set; }
