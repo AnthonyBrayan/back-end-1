@@ -15,6 +15,7 @@ namespace Data
         public DbSet<Order> Order { get; set; }
         public DbSet<Order_detail> Order_detail { get; set; }
         public DbSet<Supplier> Supllier { get; set; }
+        public DbSet<TypeUsuario> TypeUsuario { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -44,6 +45,11 @@ namespace Data
             builder.Entity<Supplier>(entity =>
             {
                 entity.ToTable("Supplier");
+            });
+            builder.Entity<TypeUsuario>(entity =>
+            {
+                entity.ToTable("TypeUsuario");
+
             });
 
         }

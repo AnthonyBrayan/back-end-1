@@ -16,6 +16,11 @@ namespace Entities
         public string Name_customer { get; set; }
         public string Email { get; set; }
 
+        // Relación con TypeUser (muchos a uno)
+        [ForeignKey("IdTypeUsuario")]
+        public int IdTypeUsuario { get; set; }
+        public virtual TypeUsuario TypeUsuario { get; set; }
+
         // Relación con pedidos (uno a muchos)
         public ICollection<Order> orders { get; set; }
     }
