@@ -9,5 +9,7 @@ namespace WebApplication1.IServices
         void DeleteProduct(int productId);
         List<ProductItem> GetProducts();
         List<ProductItem> GetProductsByStockRange(int minStock, int maxStock);
+        List<ProductItem> GetProductsByBrand(string brandName);
     }
+    
 }

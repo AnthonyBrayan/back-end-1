@@ -104,7 +104,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet(Name = "GetProductsByStockRange")]
-        public List<ProductItem> GetGetProductsByStockRange([FromQuery] string userName, [FromQuery] string userPassword, [FromQuery] int minStock, [FromQuery] int maxStock)
+        public List<ProductItem> GetProductsByStockRange([FromQuery] string userName, [FromQuery] string userPassword, [FromQuery] int minStock, [FromQuery] int maxStock)
         {
 
             var selectedUser = _serviceContext.Set<Supplier>()
@@ -116,6 +116,25 @@ namespace WebApplication1.Controllers
             if (selectedUser != null)
             {
                 return _productService.GetProductsByStockRange(minStock, maxStock);
+            }
+            else
+            {
+                throw new InvalidCredentialException("El usuario no está autorizado o no existe");
+            }
+        }
+
+        [HttpGet("{brandName}", Name = "GetProductsByBrand")]
+        public List<ProductItem> GetProductsByBrand([FromQuery] string userName, [FromQuery] string userPassword, string brandName)
+        {
+            var selectedUser = _serviceContext.Set<Supplier>()
+                .Where(u => u.name_supplier == userName
+                    && u.Password == userPassword
+                    && u.IdTypeUsuario == 1)
+                .FirstOrDefault();
+
+            if (selectedUser != null)
+            {
+                return _productService.GetProductsByBrand(brandName);
             }
             else
             {

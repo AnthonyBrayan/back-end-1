@@ -61,5 +61,10 @@ namespace WebApplication1.Services
             return _serviceContext.Products.Where(p => p.Stock >= minStock && p.Stock <= maxStock).ToList();
         }
 
+        public List<ProductItem> GetProductsByBrand(string brandName)
+        {
+            return _serviceContext.Products.Where(p => p.Brand.name_brand == brandName).ToList();
+        }
+
     }
 }
