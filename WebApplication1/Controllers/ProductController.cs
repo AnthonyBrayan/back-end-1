@@ -100,10 +100,27 @@ namespace WebApplication1.Controllers
             else
             {
                 throw new InvalidCredentialException("El usuario no está autorizado o no existe");
-            }            
+            }
         }
 
+        [HttpGet(Name = "GetProductsByStockRange")]
+        public List<ProductItem> GetGetProductsByStockRange([FromQuery] string userName, [FromQuery] string userPassword, [FromQuery] int minStock, [FromQuery] int maxStock)
+        {
 
+            var selectedUser = _serviceContext.Set<Supplier>()
+            .Where(u => u.name_supplier == userName
+            && u.Password == userPassword
+            && u.IdTypeUsuario == 1)
+            .FirstOrDefault();
 
+            if (selectedUser != null)
+            {
+                return _productService.GetProductsByStockRange(minStock, maxStock);
+            }
+            else
+            {
+                throw new InvalidCredentialException("El usuario no está autorizado o no existe");
+            }
+        }
     }
 }

@@ -56,5 +56,10 @@ namespace WebApplication1.Services
             return _serviceContext.Products.ToList();
         }
 
+        public List<ProductItem> GetProductsByStockRange(int minStock, int maxStock)
+        {
+            return _serviceContext.Products.Where(p => p.Stock >= minStock && p.Stock <= maxStock).ToList();
+        }
+
     }
 }

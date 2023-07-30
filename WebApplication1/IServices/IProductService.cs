@@ -8,5 +8,6 @@ namespace WebApplication1.IServices
         void UpdateProduct(int productId, ProductItem updatedProduct);
         void DeleteProduct(int productId);
         List<ProductItem> GetProducts();
+        List<ProductItem> GetProductsByStockRange(int minStock, int maxStock);
     }
 }
