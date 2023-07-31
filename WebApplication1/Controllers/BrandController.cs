@@ -4,26 +4,28 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Authentication;
 using System.Web.Http.Cors;
 using WebApplication1.IServices;
+using WebApplication1.Services;
 
 namespace WebApplication1.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     [Route("[controller]/[action]")]
-    public class CustomerController : ControllerBase
+
+    public class BrandController : ControllerBase
     {
 
-        private readonly ICustomerService _customerService;
+        private readonly IBrandService _brandService;
         private readonly ServiceContext _serviceContext;
 
-        public CustomerController(ICustomerService customerService, ServiceContext serviceContext)
+        public BrandController(IBrandService brandService, ServiceContext serviceContext)
         {
-            _customerService = customerService;
+            _brandService = brandService;
             _serviceContext = serviceContext;
-
         }
 
-        [HttpPost(Name = "InsertCustomer")]
-        public int Post([FromQuery] string userName, [FromQuery] string userPassword, [FromBody] Customer customer)
+
+        [HttpPost(Name = "InsertBrand")]
+        public int Post([FromQuery] string userName, [FromQuery] string userPassword, [FromBody] Brand brand)
         {
             var selectedUser = _serviceContext.Set<Supplier>()
                                .Where(u => u.name_supplier == userName
@@ -33,7 +35,7 @@ namespace WebApplication1.Controllers
 
             if (selectedUser != null)
             {
-                return _customerService.InsertCustomer(customer);
+                return _brandService.InsertBrand(brand);
             }
             else
             {
@@ -41,8 +43,8 @@ namespace WebApplication1.Controllers
             }
         }
 
-        [HttpPut("{customerId}", Name = "UpdateCustomer")]
-        public IActionResult Put([FromQuery] string userName, [FromQuery] string userPassword, int customerId, [FromBody] Customer updatedCustomer)
+        [HttpPut("{brandId}", Name = "UpdateBrand")]
+        public IActionResult Put([FromQuery] string userName, [FromQuery] string userPassword, int brandId, [FromBody] Brand updatedBrand)
         {
             var selectedUser = _serviceContext.Set<Supplier>()
                    .Where(u => u.name_supplier == userName
@@ -52,7 +54,7 @@ namespace WebApplication1.Controllers
 
             if (selectedUser != null)
             {
-                _customerService.UpdateCustomer(customerId, updatedCustomer);
+                _brandService.UpdateBrand(brandId, updatedBrand);
                 return NoContent();
             }
             else
@@ -61,8 +63,8 @@ namespace WebApplication1.Controllers
             }
         }
 
-        [HttpDelete("{customerId}", Name = "DeleteCustomer")]
-        public IActionResult Delete([FromQuery] string userName, [FromQuery] string userPassword, int customerId)
+        [HttpDelete("{brandId}", Name = "DeleteBrand")]
+        public IActionResult Delete([FromQuery] string userName, [FromQuery] string userPassword, int brandId)
         {
             var selectedUser = _serviceContext.Set<Supplier>()
                    .Where(u => u.name_supplier == userName
@@ -72,8 +74,8 @@ namespace WebApplication1.Controllers
 
             if (selectedUser != null)
             {
-                _customerService.DeleteCustomer(customerId);
-                return Ok(new { message = "Cliente eliminado exitosamente" });
+                _brandService.DeleteBrand(brandId);
+                return Ok(new { message = "Marca eliminada exitosamente" });
             }
             else
             {
@@ -81,8 +83,8 @@ namespace WebApplication1.Controllers
             }
         }
 
-        [HttpGet(Name = "GetAllCustomers")]
-        public IActionResult GetCustomers([FromQuery] string userName, [FromQuery] string userPassword)
+        [HttpGet(Name = "GetBrands")]
+        public IActionResult Get([FromQuery] string userName, [FromQuery] string userPassword)
         {
             var selectedUser = _serviceContext.Set<Supplier>()
                    .Where(u => u.name_supplier == userName
@@ -92,13 +94,14 @@ namespace WebApplication1.Controllers
 
             if (selectedUser != null)
             {
-                var customers = _customerService.GetCustomers();
-                return Ok(customers);
+                var brands = _brandService.GetBrands();
+                return Ok(brands);
             }
             else
             {
                 throw new InvalidCredentialException("El usuario no está autorizado o no existe");
             }
         }
+
     }
 }

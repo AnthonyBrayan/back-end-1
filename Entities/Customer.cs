@@ -26,6 +26,6 @@ namespace Entities
 
         // Relación con pedidos (uno a muchos)
 
-        public ICollection<Order> orders { get; set; }
+        public ICollection<Orders> orders { get; set; }
     }
 }

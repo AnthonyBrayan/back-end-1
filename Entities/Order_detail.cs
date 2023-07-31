@@ -17,10 +17,10 @@ namespace Entities
         public int Quantity { get; set; }
 
         // Relación con pedido (muchos a uno)
-        [ForeignKey("Order")]
+        [ForeignKey("Orders")]
         public int IdOrder { get; set; }
         [JsonIgnore]
-        public virtual Order Order { get; set; }
+        public virtual Orders Orders { get; set; }
 
         // Relación con producto (muchos a uno)
         [ForeignKey("Product")]

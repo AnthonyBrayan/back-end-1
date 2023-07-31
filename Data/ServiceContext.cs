@@ -12,7 +12,7 @@ namespace Data
         public DbSet<ProductItem> Products { get; set; }
         public DbSet<Brand> Brand { get; set; }
         public DbSet<Customer> Customer { get; set; }
-        public DbSet<Order> Order { get; set; }
+        public DbSet<Orders> Orders { get; set; }
         public DbSet<Order_detail> Order_detail { get; set; }
         public DbSet<Supplier> Supllier { get; set; }
         public DbSet<TypeUsuario> TypeUsuario { get; set; }
@@ -34,9 +34,9 @@ namespace Data
             {
                 entity.ToTable("Customer");
             });
-            builder.Entity<Order>(entity =>
+            builder.Entity<Orders>(entity =>
             {
-                entity.ToTable("Order");
+                entity.ToTable("Orders");
             });
             builder.Entity<Order_detail>(entity =>
             {

@@ -11,7 +11,7 @@ namespace Entities
 {
     public class ProductItem
     {
-        //[Key]
+        [Key]
         public int Id { get; set; }
 
         public string productName { get; set; }

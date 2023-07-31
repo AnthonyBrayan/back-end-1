@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public class Order
+    public class Orders
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
