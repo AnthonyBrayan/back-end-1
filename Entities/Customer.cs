@@ -22,8 +22,10 @@ namespace Entities
         public int IdTypeUsuario { get; set; }
         [JsonIgnore]
         public virtual TypeUsuario TypeUsuario{ get; set; }
+        [JsonIgnore]
 
         // Relación con pedidos (uno a muchos)
+
         public ICollection<Order> orders { get; set; }
     }
 }
