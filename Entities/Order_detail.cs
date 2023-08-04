@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Entities
@@ -16,13 +17,15 @@ namespace Entities
         public int Quantity { get; set; }
 
         // Relación con pedido (muchos a uno)
-        [ForeignKey("Order")]
+        [ForeignKey("Orders")]
         public int IdOrder { get; set; }
-        public virtual Order Order { get; set; }
+        [JsonIgnore]
+        public virtual Orders Orders { get; set; }
 
         // Relación con producto (muchos a uno)
         [ForeignKey("Product")]
         public int IdProduct { get; set; }
+        [JsonIgnore]
         public virtual ProductItem Product { get; set; }
     }
 }

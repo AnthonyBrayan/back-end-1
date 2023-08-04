@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Entities
@@ -17,8 +18,13 @@ namespace Entities
         public string Email { get; set; }
         public string Password { get; set; }
 
-        // Relación con productos (uno a muchos)
+        // Relación con TypeUser (muchos a uno)
+        [ForeignKey("TypeUsuario")]
+        public int IdTypeUsuario { get; set; }
+        [JsonIgnore]
+        public virtual TypeUsuario TypeUsuario { get; set; }
 
+        // Relación con productos (uno a muchos)
         public ICollection<ProductItem> Products { get; set; }
     }
 }

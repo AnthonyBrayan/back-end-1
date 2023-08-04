@@ -4,6 +4,7 @@ using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(ServiceContext))]
-    partial class ServiceContextModelSnapshot : ModelSnapshot
+    [Migration("20230730162229_addTableTypeUser")]
+    partial class addTableTypeUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,40 +61,17 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TypeUsuarioId_TypeUser")
+                        .HasColumnType("int");
+
                     b.HasKey("Id_customer");
 
-                    b.HasIndex("IdTypeUsuario");
+                    b.HasIndex("TypeUsuarioId_TypeUser");
 
                     b.ToTable("Customer", (string)null);
                 });
 
-            modelBuilder.Entity("Entities.Order_detail", b =>
-                {
-                    b.Property<int>("Id_order_detail")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id_order_detail"));
-
-                    b.Property<int>("IdOrder")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdProduct")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id_order_detail");
-
-                    b.HasIndex("IdOrder");
-
-                    b.HasIndex("IdProduct");
-
-                    b.ToTable("Order_detail", (string)null);
-                });
-
-            modelBuilder.Entity("Entities.Orders", b =>
+            modelBuilder.Entity("Entities.Order", b =>
                 {
                     b.Property<int>("Id_order")
                         .ValueGeneratedOnAdd()
@@ -119,7 +99,33 @@ namespace Data.Migrations
 
                     b.HasIndex("IdCustomer");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Order", (string)null);
+                });
+
+            modelBuilder.Entity("Entities.Order_detail", b =>
+                {
+                    b.Property<int>("Id_order_detail")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id_order_detail"));
+
+                    b.Property<int>("IdOrder")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdProduct")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id_order_detail");
+
+                    b.HasIndex("IdOrder");
+
+                    b.HasIndex("IdProduct");
+
+                    b.ToTable("Order_detail", (string)null);
                 });
 
             modelBuilder.Entity("Entities.ProductItem", b =>
@@ -178,13 +184,16 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TypeUsuarioId_TypeUser")
+                        .HasColumnType("int");
+
                     b.Property<string>("name_supplier")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id_supplier");
 
-                    b.HasIndex("IdTypeUsuario");
+                    b.HasIndex("TypeUsuarioId_TypeUser");
 
                     b.ToTable("Supplier", (string)null);
                 });
@@ -210,16 +219,27 @@ namespace Data.Migrations
                 {
                     b.HasOne("Entities.TypeUsuario", "TypeUsuario")
                         .WithMany("Customer")
-                        .HasForeignKey("IdTypeUsuario")
+                        .HasForeignKey("TypeUsuarioId_TypeUser")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("TypeUsuario");
                 });
 
+            modelBuilder.Entity("Entities.Order", b =>
+                {
+                    b.HasOne("Entities.Customer", "Custumer")
+                        .WithMany("orders")
+                        .HasForeignKey("IdCustomer")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Custumer");
+                });
+
             modelBuilder.Entity("Entities.Order_detail", b =>
                 {
-                    b.HasOne("Entities.Orders", "Order")
+                    b.HasOne("Entities.Order", "Order")
                         .WithMany("order_Detail")
                         .HasForeignKey("IdOrder")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -234,17 +254,6 @@ namespace Data.Migrations
                     b.Navigation("Order");
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Entities.Orders", b =>
-                {
-                    b.HasOne("Entities.Customer", "Custumer")
-                        .WithMany("orders")
-                        .HasForeignKey("IdCustomer")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Custumer");
                 });
 
             modelBuilder.Entity("Entities.ProductItem", b =>
@@ -270,7 +279,7 @@ namespace Data.Migrations
                 {
                     b.HasOne("Entities.TypeUsuario", "TypeUsuario")
                         .WithMany("Supplier")
-                        .HasForeignKey("IdTypeUsuario")
+                        .HasForeignKey("TypeUsuarioId_TypeUser")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -287,7 +296,7 @@ namespace Data.Migrations
                     b.Navigation("orders");
                 });
 
-            modelBuilder.Entity("Entities.Orders", b =>
+            modelBuilder.Entity("Entities.Order", b =>
                 {
                     b.Navigation("order_Detail");
                 });

@@ -4,13 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Entities
 {
     public class ProductItem
     {
-        //[Key]
+        [Key]
         public int Id { get; set; }
 
         public string productName { get; set; }
@@ -24,10 +25,13 @@ namespace Entities
         //Cuando la relacion es de 1 a 1
         [ForeignKey("Supplier")]
         public int Id_supplier { get; set; }
+
+        [JsonIgnore]
         public virtual Supplier Supplier { get; set; }
 
         [ForeignKey("Brand")]
         public int Id_brand { get; set; }
+        [JsonIgnore]
         public virtual Brand Brand { get; set; }
 
     }

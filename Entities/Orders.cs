@@ -4,11 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Entities
 {
-    public class Order
+    public class Orders
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -23,6 +24,7 @@ namespace Entities
         // Relación con cliente (muchos a uno)
         [ForeignKey("Custumer")]
         public int IdCustomer { get; set; }
+        [JsonIgnore]
         public virtual Customer Custumer { get; set; }
 
         // Relación con detalles de pedido (uno a muchos)
