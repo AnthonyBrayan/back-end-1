@@ -110,7 +110,7 @@ namespace WebApplication1.Controllers
 
         }
 
-            [HttpPost(Name = "UpdateOrderStatus")]
+            [HttpPatch(Name = "UpdateOrderStatus")]
     public IActionResult UpdateOrderStatus([FromQuery] string userName, [FromQuery] string userPassword, int orderId, string newStatus)
     {
 

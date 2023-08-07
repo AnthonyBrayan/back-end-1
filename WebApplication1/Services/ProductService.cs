@@ -11,7 +11,8 @@ namespace WebApplication1.Services
         {
         }
 
-        public int insertProduct(ProductItem productItem)
+
+        public int InsertProduct(ProductItem productItem)
         {
             _serviceContext.Products.Add(productItem);
             _serviceContext.SaveChanges();

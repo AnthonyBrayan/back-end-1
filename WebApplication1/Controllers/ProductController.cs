@@ -23,17 +23,17 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost(Name = "InsertProduct")]
-        public int Post([FromQuery] string userName, [FromQuery] string userPassword, [FromBody] ProductItem productItem)
+         public int Post([FromQuery] string userName, [FromQuery] string userPassword, [FromBody] ProductItem productItem)
         {
             var selectedUser = _serviceContext.Set<Supplier>()
-                               .Where(u => u.name_supplier == userName
-                                   && u.Password == userPassword
-                                   && u.IdTypeUsuario == 1)
-                                .FirstOrDefault();
+                                   .Where(u => u.name_supplier == userName
+                                       && u.Password == userPassword
+                                       && u.IdTypeUsuario == 1)
+                                    .FirstOrDefault();
 
             if (selectedUser != null)
             {
-                return _productService.insertProduct(productItem);
+                return _productService.InsertProduct(productItem);
             }
             else
             {
